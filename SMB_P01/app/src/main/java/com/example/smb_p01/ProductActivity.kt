@@ -1,5 +1,6 @@
 package com.example.smb_p01
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -18,5 +19,12 @@ class ProductActivity : AppCompatActivity() {
 
         binding = ActivityProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.rejectAndCloseButton.setOnClickListener {
+            startActivity(Intent(this,MainActivity::class.java))
+        }
+        binding.addButton.setOnClickListener {
+
+        }
     }
 }
