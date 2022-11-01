@@ -18,6 +18,10 @@ class MainActivity : AppCompatActivity() {
         binding.settingsButton.setOnClickListener{
             startActivity(Intent(this,SettingsActivity::class.java))
         }
+
+        binding.addProductButton.setOnClickListener{
+            startActivity(Intent(this,ProductActivity::class.java))
+        }
     }
 
 }
