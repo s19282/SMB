@@ -4,6 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smb_p01.databinding.ProductBinding
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class ProductAdapter(private val pvm: ProductViewModel) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
@@ -18,6 +22,7 @@ class ProductAdapter(private val pvm: ProductViewModel) :
         return ViewHolder(binding)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.nameValueTextView.text = products[position].name
         holder.binding.priceTextView.text = products[position].price.toString()
@@ -25,24 +30,32 @@ class ProductAdapter(private val pvm: ProductViewModel) :
         holder.binding.isBoughtCheckBox.isChecked = products[position].isBought
 
         holder.binding.root.setOnClickListener {
-            delete(products[position].id)
+            CoroutineScope(IO).launch {
+                delete(products[position].id)
+            }
         }
     }
 
     override fun getItemCount(): Int = products.size
 
-    fun add(product: Product) {
-        pvm.insert(product)
+    suspend fun add(product: Product) {
+        CoroutineScope(IO).launch{
+            pvm.insert(product)
+        }
         notifyDataSetChanged() //TODO: replace with notifyItemInserted
     }
 
-    fun delete(id: Long) {
-        pvm.delete(id)
+    suspend fun delete(id: Long) {
+        CoroutineScope(IO).launch {
+            pvm.delete(id)
+        }
         notifyDataSetChanged()
     }
 
-    fun setProducts(allProducts: List<Product>) {
-        products = allProducts
+    suspend fun setProducts(allProducts: List<Product>) {
+        CoroutineScope(IO).launch {
+            products = allProducts
+        }
         notifyDataSetChanged()
     }
 }

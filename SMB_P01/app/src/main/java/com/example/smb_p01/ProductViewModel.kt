@@ -14,11 +14,11 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         allProducts = repository.allProducts
     }
 
-    fun insert(product: Product) = repository.insert(product)
+    suspend fun insert(product: Product) = repository.insert(product)
 
-    fun update(product: Product) = repository.update(product)
+    suspend fun update(product: Product) = repository.update(product)
 
-    fun delete(id: Long) = repository.delete(id)
+    suspend fun delete(id: Long) = repository.delete(id)
 
-    fun deleteAll() = repository.deleteAll()
+    suspend fun deleteAll() = repository.deleteAll()
 }
