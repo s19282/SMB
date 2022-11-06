@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: ProductRepository
-    private val allProducts: LiveData<List<Product>>
+    val allProducts: LiveData<List<Product>>
 
     init {
         repository = ProductRepository(ProductDB.getDB(application).product)

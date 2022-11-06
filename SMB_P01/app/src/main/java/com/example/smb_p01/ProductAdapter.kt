@@ -1,10 +1,13 @@
 package com.example.smb_p01
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smb_p01.databinding.ProductBinding
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -22,40 +25,58 @@ class ProductAdapter(private val pvm: ProductViewModel) :
         return ViewHolder(binding)
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.nameValueTextView.text = products[position].name
-        holder.binding.priceTextView.text = products[position].price.toString()
+        holder.binding.priceValueTextView.text = products[position].price.toString()
         holder.binding.amountValueTextView.text = products[position].amount.toString()
         holder.binding.isBoughtCheckBox.isChecked = products[position].isBought
 
         holder.binding.root.setOnClickListener {
-            CoroutineScope(IO).launch {
-                delete(products[position].id)
-            }
+            val intent = Intent(holder.binding.root.context, ProductActivity::class.java)
+            intent.putExtra("mode", "Edit")
+            intent.putExtra("name", products[position].name)
+            intent.putExtra("amount", products[position].amount.toString())
+            intent.putExtra("price", products[position].price.toString())
+            intent.putExtra("isBought", products[position].isBought)
+            ContextCompat.startActivity(
+                holder.binding.root.context,
+                intent,
+                Bundle()
+            )
+        }
+        holder.binding.root.setOnLongClickListener {
+            AlertDialog
+                .Builder(holder.binding.root.context)
+                .setMessage("Are you sure you want to Delete?")
+                .setPositiveButton("Yes") { _, _ ->
+                    delete(products[position].id)
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create().show()
+            true
         }
     }
 
     override fun getItemCount(): Int = products.size
 
-    suspend fun add(product: Product) {
-        CoroutineScope(IO).launch{
+    fun add(product: Product) {
+        CoroutineScope(IO).launch {
             pvm.insert(product)
         }
         notifyDataSetChanged() //TODO: replace with notifyItemInserted
     }
 
-    suspend fun delete(id: Long) {
+    fun delete(id: Long) {
         CoroutineScope(IO).launch {
             pvm.delete(id)
         }
         notifyDataSetChanged()
     }
 
-    suspend fun setProducts(allProducts: List<Product>) {
-        CoroutineScope(IO).launch {
-            products = allProducts
-        }
+    fun setProducts(allProducts: List<Product>) {
+        products = allProducts
         notifyDataSetChanged()
     }
 }
