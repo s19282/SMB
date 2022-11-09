@@ -1,6 +1,9 @@
 package com.example.smb_p01
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -16,12 +19,23 @@ import kotlinx.coroutines.launch
 class ProductActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductBinding
+    private lateinit var sp: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        sp = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        binding.coordinatorLayout3.setBackgroundColor(
+            Color.parseColor(
+                sp.getString(
+                    "backgroundColor",
+                    "#50F1A0"
+                )
+            )
+        )
+        binding.topText.textSize = sp.getString("fontSize", "20")!!.toFloat()
 
         val pvm = ProductViewModel(application)
         val adapter = ProductAdapter(pvm)
