@@ -39,25 +39,38 @@ class ProductActivity : AppCompatActivity() {
 
         val pvm = ProductViewModel(application)
         val adapter = ProductAdapter(pvm)
-        binding.topText.text = intent.getStringExtra("mode")+ " product"
+        binding.addButton.text = intent.getStringExtra("mode")
+        binding.topText.text = intent.getStringExtra("mode") + " product"
         binding.editTextTextProductName.setText(intent.getStringExtra("name"))
         binding.editTextTextProductAmount.setText(intent.getStringExtra("amount"))
         binding.editTextTextProductPrice.setText(intent.getStringExtra("price"))
-        binding.checkBoxIsBought.text = intent.getStringExtra("isBought")
+        binding.checkBoxIsBought.isChecked = intent.getBooleanExtra("isBought", false)
 
         binding.rejectAndCloseButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
         binding.addButton.setOnClickListener {
             CoroutineScope(IO).launch {
-                adapter.add(
-                    Product(
-                        name = binding.editTextTextProductName.text.toString(),
-                        price = binding.editTextTextProductPrice.text.toString().toDouble(),
-                        amount = binding.editTextTextProductAmount.text.toString().toDouble(),
-                        isBought = binding.checkBoxIsBought.isChecked
+                if (intent.getStringExtra("mode").equals("Add")) {
+                    adapter.add(
+                        Product(
+                            name = binding.editTextTextProductName.text.toString(),
+                            price = binding.editTextTextProductPrice.text.toString().toDouble(),
+                            amount = binding.editTextTextProductAmount.text.toString().toDouble(),
+                            isBought = binding.checkBoxIsBought.isChecked
+                        )
                     )
-                )
+                } else {
+                    adapter.update(
+                        Product(
+                            id = intent.getLongExtra("id", 0),
+                            name = binding.editTextTextProductName.text.toString(),
+                            price = binding.editTextTextProductPrice.text.toString().toDouble(),
+                            amount = binding.editTextTextProductAmount.text.toString().toDouble(),
+                            isBought = binding.checkBoxIsBought.isChecked
+                        )
+                    )
+                }
             }
             startActivity(Intent(this, MainActivity::class.java))
         }

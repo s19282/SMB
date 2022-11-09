@@ -34,6 +34,7 @@ class ProductAdapter(private val pvm: ProductViewModel) :
         holder.binding.root.setOnClickListener {
             val intent = Intent(holder.binding.root.context, ProductActivity::class.java)
             intent.putExtra("mode", "Edit")
+            intent.putExtra("id", products[position].id)
             intent.putExtra("name", products[position].name)
             intent.putExtra("amount", products[position].amount.toString())
             intent.putExtra("price", products[position].price.toString())
@@ -66,6 +67,13 @@ class ProductAdapter(private val pvm: ProductViewModel) :
             pvm.insert(product)
         }
         notifyDataSetChanged() //TODO: replace with notifyItemInserted
+    }
+
+    fun update(product: Product){
+        CoroutineScope(IO).launch {
+            pvm.update(product)
+        }
+        notifyDataSetChanged()
     }
 
     fun delete(id: Long) {
