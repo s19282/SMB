@@ -22,7 +22,6 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         sp = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         editor = sp.edit()
-        getSettingsFromSP()
         when (sp.getString("backgroundColor", "#FF03A9F4")) {
             "#FF03A9F4" -> binding.radioGroup.check(R.id.radioButtonBlue)
             "#FF8BC34A" -> binding.radioGroup.check(R.id.radioButtonGreen)
@@ -40,6 +39,11 @@ class SettingsActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        getSettingsFromSP()
     }
 
     private fun getSettingsFromSP() {

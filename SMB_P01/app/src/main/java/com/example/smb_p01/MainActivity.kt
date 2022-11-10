@@ -27,16 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         val pvm = ProductViewModel(application)
         val adapter = ProductAdapter(pvm)
-        sp = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        binding.coordinatorLayout.setBackgroundColor(
-            Color.parseColor(
-                sp.getString(
-                    "backgroundColor",
-                    "#50F1A0"
-                )
-            )
-        )
-        binding.mainText.textSize = sp.getString("fontSize", "20")!!.toFloat()
+
         binding.productList.layoutManager = LinearLayoutManager(this)
         binding.productList.addItemDecoration(
             DividerItemDecoration(
@@ -65,8 +56,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         sp = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         binding.coordinatorLayout.setBackgroundColor(
             Color.parseColor(

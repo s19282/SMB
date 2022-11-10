@@ -26,16 +26,6 @@ class ProductActivity : AppCompatActivity() {
 
         binding = ActivityProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sp = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        binding.coordinatorLayout3.setBackgroundColor(
-            Color.parseColor(
-                sp.getString(
-                    "backgroundColor",
-                    "#50F1A0"
-                )
-            )
-        )
-        binding.topText.textSize = sp.getString("fontSize", "20")!!.toFloat()
 
         val pvm = ProductViewModel(application)
         val adapter = ProductAdapter(pvm)
@@ -74,5 +64,20 @@ class ProductActivity : AppCompatActivity() {
             }
             startActivity(Intent(this, MainActivity::class.java))
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        sp = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        binding.coordinatorLayout3.setBackgroundColor(
+            Color.parseColor(
+                sp.getString(
+                    "backgroundColor",
+                    "#50F1A0"
+                )
+            )
+        )
+        binding.topText.textSize = sp.getString("fontSize", "20")!!.toFloat()
+
     }
 }
