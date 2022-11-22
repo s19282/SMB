@@ -55,21 +55,24 @@ class ProductAdapter(private val pvm: ProductViewModel) :
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
                 }
-                .create().show()
+                .create()
+                .show()
             true
         }
     }
 
     override fun getItemCount(): Int = products.size
 
-    fun add(product: Product) {
+    fun add(product: Product): Long {
+        var id: Long = 0
         CoroutineScope(IO).launch {
-            pvm.insert(product)
+            id = pvm.insert(product)
         }
-        notifyDataSetChanged() //TODO: replace with notifyItemInserted
+        notifyDataSetChanged()
+        return id
     }
 
-    fun update(product: Product){
+    fun update(product: Product) {
         CoroutineScope(IO).launch {
             pvm.update(product)
         }

@@ -5,12 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.smb_p01.databinding.ActivityProductBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -49,7 +44,26 @@ class ProductActivity : AppCompatActivity() {
                             amount = binding.editTextTextProductAmount.text.toString().toDouble(),
                             isBought = binding.checkBoxIsBought.isChecked
                         )
-                    )
+                    ).let { id ->
+                        val intent = Intent()
+                        intent.setClassName(
+                            "com.example.broadcastreceiverapp",
+                            "com.example.broadcastreceiverapp.ProductReceiver"
+                        )
+                        intent.putExtra("id", id)
+                        intent.putExtra("name", binding.editTextTextProductName.text.toString())
+                        intent.putExtra(
+                            "price",
+                            binding.editTextTextProductPrice.text.toString().toDouble()
+                        )
+                        intent.putExtra(
+                            "amount",
+                            binding.editTextTextProductAmount.text.toString().toDouble()
+                        )
+                        intent.putExtra("isBought", binding.checkBoxIsBought.isChecked)
+                        intent.action = "com.example.smb_p01.action.PRODUCT_ADDED"
+                        sendBroadcast(intent)
+                    }
                 } else {
                     adapter.update(
                         Product(
