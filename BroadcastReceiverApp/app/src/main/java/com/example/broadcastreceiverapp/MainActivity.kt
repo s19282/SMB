@@ -1,9 +1,6 @@
 package com.example.broadcastreceiverapp
 
-import android.content.IntentFilter
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -12,32 +9,38 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ActivityResultContracts.RequestPermission()
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (!isGranted) {
-                Toast.makeText(
-                    applicationContext,
-                    "Permissions have not been granted, notifications will not work",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-        println("receiver created")
-        receiver = ProductReceiver()
+//        registerForActivityResult(
+//            ActivityResultContracts.RequestPermission()
+//        ) { isGranted: Boolean ->
+//            if (!isGranted) {
+//                Toast.makeText(
+//                    applicationContext,
+//                    "Permissions have not been granted, notifications will not work",
+//                    Toast.LENGTH_LONG
+//                ).show()
+//            }
+//        }
+//        receiver = ProductReceiver()
+//        val filter = IntentFilter("com.example.smb_p01.action.PRODUCT_ADDED")
+//
+//        registerReceiver(
+//            receiver,
+//            IntentFilter()
+//        )
     }
 
     override fun onStart() {
         super.onStart()
-        registerReceiver(
-            receiver,
-            IntentFilter("com.example.smb_p01.action.AddProduct")
-        )
+//        println("register")
+//        registerReceiver(
+//            receiver,
+//            IntentFilter("com.example.smb_p01.action.PRODUCT_ADDED")
+//        )
+//        println("registered")
     }
 
     override fun onStop() {
         super.onStop()
-        unregisterReceiver(receiver)
+        //unregisterReceiver(receiver)
     }
 }
