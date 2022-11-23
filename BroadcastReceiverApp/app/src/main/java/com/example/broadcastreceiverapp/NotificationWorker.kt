@@ -10,12 +10,13 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import kotlin.random.Random
 
 
 class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {
     companion object {
-        var counter = 0
+        var counter = Random.nextInt()
     }
 
     override fun doWork(): Result {
@@ -38,7 +39,7 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
             applicationContext,
             counter++,
             intent,
-            PendingIntent.FLAG_MUTABLE
+            PendingIntent.FLAG_IMMUTABLE
         )
         val notification = NotificationCompat
             .Builder(applicationContext, channelId)
