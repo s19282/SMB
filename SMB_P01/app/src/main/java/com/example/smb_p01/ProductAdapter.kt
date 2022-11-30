@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smb_p01.databinding.ProductBinding
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
 
 class ProductAdapter(private val pvm: ProductViewModel) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
@@ -66,7 +66,11 @@ class ProductAdapter(private val pvm: ProductViewModel) :
     fun add(product: Product): Long {
         var id: Long = 0
         CoroutineScope(IO).launch {
-            id = pvm.insert(product)
+            //id = pvm.insert(product)
+            val deferred = GlobalScope.async(Dispatchers.Default) {
+                pvm.insert(product)
+            }
+            id = deferred.await()
         }
         notifyDataSetChanged()
         return id

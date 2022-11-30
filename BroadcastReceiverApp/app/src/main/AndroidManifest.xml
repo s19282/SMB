@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <!--    <uses-permission android:name="android.permission.ProductNotification"/>-->
+
+    <uses-permission android:name="com.example.smb_p01.permission.ProductNotification" />
+
     <queries>
         <package android:name="com.example.smb_p01.ProductActivity" />
     </queries>
@@ -23,7 +23,6 @@
             android:name=".ProductReceiver"
             android:enabled="true"
             android:exported="true">
-            <!--            android:permission="android.permission.ProductNotification">-->
             <intent-filter>
                 <action android:name="com.example.smb_p01.action.PRODUCT_ADDED" />
             </intent-filter>

@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <permission
+        android:name="com.example.smb_p01.permission.ProductNotification"
+        android:label="ProductNotification"
+        android:protectionLevel="dangerous" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,12 +20,16 @@
         tools:targetApi="31">
         <activity
             android:name=".ProductActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_product"
             android:theme="@style/Theme.SMB_P01.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+            <intent-filter>
+                <action android:name="com.example.smb_p01.ProductActivity" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SettingsActivity"

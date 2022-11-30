@@ -45,7 +45,7 @@ class ProductActivity : AppCompatActivity() {
                             isBought = binding.checkBoxIsBought.isChecked
                         )
                     ).let { id ->
-                        val intent = Intent()
+                        val intent = Intent(applicationContext, ProductActivity::class.java)
                         intent.setClassName(
                             "com.example.broadcastreceiverapp",
                             "com.example.broadcastreceiverapp.ProductReceiver"
@@ -54,17 +54,20 @@ class ProductActivity : AppCompatActivity() {
                         intent.putExtra("name", binding.editTextTextProductName.text.toString())
                         intent.putExtra(
                             "price",
-                            binding.editTextTextProductPrice.text.toString().toDouble()
+                            binding.editTextTextProductPrice.text.toString()
                         )
                         intent.putExtra(
                             "amount",
-                            binding.editTextTextProductAmount.text.toString().toDouble()
+                            binding.editTextTextProductAmount.text.toString()
                         )
                         intent.putExtra("isBought", binding.checkBoxIsBought.isChecked)
                         intent.action = "com.example.smb_p01.action.PRODUCT_ADDED"
-                        sendBroadcast(intent)
+                        //sendBroadcast(intent)
+                        sendBroadcast(intent,"com.example.smb_p01.permission.ProductNotification")
+//                        sendBroadcast(intent,Manifest.permission.ProductNotification)
                     }
                 } else {
+                    println("id: "+intent.getLongExtra("id",0))
                     adapter.update(
                         Product(
                             id = intent.getLongExtra("id", 0),
