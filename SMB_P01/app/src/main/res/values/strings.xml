@@ -11,4 +11,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_product">ProductActivity</string>
+    <string name="loginText">In order to use this app you need an account</string>
+    <string name="password">PasswordTV</string>
+    <string name="email">EmailTV</string>
 </resources>
