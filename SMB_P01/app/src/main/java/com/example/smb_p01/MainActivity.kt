@@ -5,8 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             binding.productList.adapter = adapter
             pvm.allProducts.observe(this) {
                 it.let {
-                    adapter.setProducts(it)
+                    adapter.setProducts(it.values.toList())
                 }
             }
 

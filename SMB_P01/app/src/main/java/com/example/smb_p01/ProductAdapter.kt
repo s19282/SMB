@@ -50,7 +50,7 @@ class ProductAdapter(private val pvm: ProductViewModel) :
                 .Builder(holder.binding.root.context)
                 .setMessage("Are you sure you want to Delete?")
                 .setPositiveButton("Yes") { _, _ ->
-                    delete(products[position].id)
+                    delete(products[position])
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
@@ -66,7 +66,7 @@ class ProductAdapter(private val pvm: ProductViewModel) :
         CoroutineScope(IO).launch {
             pvm.insert(product)
         }
-        notifyDataSetChanged() //TODO: replace with notifyItemInserted
+        notifyDataSetChanged()
     }
 
     fun update(product: Product){
@@ -76,9 +76,16 @@ class ProductAdapter(private val pvm: ProductViewModel) :
         notifyDataSetChanged()
     }
 
-    fun delete(id: Long) {
+    fun delete(product: Product) {
         CoroutineScope(IO).launch {
-            pvm.delete(id)
+            pvm.delete(product)
+        }
+        notifyDataSetChanged()
+    }
+
+    fun deleteAll() {
+        CoroutineScope(IO).launch {
+            pvm.deleteAll()
         }
         notifyDataSetChanged()
     }

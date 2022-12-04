@@ -44,6 +44,7 @@ class ProductActivity : AppCompatActivity() {
                 if (intent.getStringExtra("mode").equals("Add")) {
                     adapter.add(
                         Product(
+                            id = "",
                             name = binding.editTextTextProductName.text.toString(),
                             price = binding.editTextTextProductPrice.text.toString().toDouble(),
                             amount = binding.editTextTextProductAmount.text.toString().toDouble(),
@@ -53,7 +54,7 @@ class ProductActivity : AppCompatActivity() {
                 } else {
                     adapter.update(
                         Product(
-                            id = intent.getLongExtra("id", 0),
+                            id = intent.getStringExtra("id").orEmpty(),
                             name = binding.editTextTextProductName.text.toString(),
                             price = binding.editTextTextProductPrice.text.toString().toDouble(),
                             amount = binding.editTextTextProductAmount.text.toString().toDouble(),

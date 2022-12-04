@@ -26,11 +26,11 @@
                 android:value="" />
         </activity>
 
-        <provider
-            android:name=".ProductContentProvider"
-            android:authorities="com.example.smb_p01.ProductContentProvider"
-            android:enabled="true"
-            android:exported="true" />
+<!--        <provider-->
+<!--            android:name=".ProductContentProvider"-->
+<!--            android:authorities="com.example.smb_p01.ProductContentProvider"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true" />-->
 
         <activity
             android:name=".ProductActivity"
