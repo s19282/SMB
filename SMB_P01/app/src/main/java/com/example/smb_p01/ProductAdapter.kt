@@ -76,7 +76,7 @@ class ProductAdapter(private val pvm: ProductViewModel) :
         notifyDataSetChanged()
     }
 
-    fun delete(product: Product) {
+    private fun delete(product: Product) {
         CoroutineScope(IO).launch {
             pvm.delete(product)
         }
