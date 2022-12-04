@@ -46,6 +46,13 @@ class MainActivity : AppCompatActivity() {
                     adapter.setProducts(it.values.toList())
                 }
             }
+            binding.modeSwitch.setOnClickListener {
+                if (binding.modeSwitch.isChecked) {
+                    adapter.switchMode("users/${auth.currentUser?.uid}/products")
+                } else {
+                    adapter.switchMode("sharedProducts")
+                }
+            }
 
             binding.logoutbutton.setOnClickListener {
                 auth.signOut()

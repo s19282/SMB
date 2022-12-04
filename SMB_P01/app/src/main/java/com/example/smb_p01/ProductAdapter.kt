@@ -94,4 +94,10 @@ class ProductAdapter(private val pvm: ProductViewModel) :
         products = allProducts
         notifyDataSetChanged()
     }
+
+    fun switchMode(path: String){
+        products= emptyList()
+        pvm.switchMode(path)
+        notifyDataSetChanged()
+    }
 }

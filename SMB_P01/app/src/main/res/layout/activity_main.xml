@@ -14,9 +14,10 @@
         android:layout_marginTop="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainText"
-        app:layout_constraintVertical_bias="0.114"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/product" />
 
     <TextView
@@ -60,4 +61,21 @@
         android:text="Log out"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/modeSwitch"
+        android:layout_width="172dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/ic_launcher_background"
+        android:backgroundTint="#066503"
+        android:backgroundTintMode="add"
+        android:checked="true"
+        android:enabled="true"
+        android:text="Private mode"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addProductButton"
+        app:layout_constraintStart_toEndOf="@+id/settingsButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

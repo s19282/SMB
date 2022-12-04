@@ -23,4 +23,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     fun delete(product: Product) = repository.delete(product)
 
     fun deleteAll() = repository.deleteAll()
+    fun switchMode(path: String){
+        repository.switchMode(path)
+    }
 }
