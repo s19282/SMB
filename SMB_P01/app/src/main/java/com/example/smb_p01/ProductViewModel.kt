@@ -2,7 +2,6 @@ package com.example.smb_p01
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.FirebaseDatabase
 
