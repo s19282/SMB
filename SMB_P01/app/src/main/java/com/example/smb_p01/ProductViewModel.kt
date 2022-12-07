@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: ProductRepository
-    val allProducts: MutableLiveData<HashMap<String, Product>>
+    var allProducts: MutableLiveData<HashMap<String, Product>>
     var firebaseDB: FirebaseDatabase = FirebaseDatabase.getInstance()
 
     init {

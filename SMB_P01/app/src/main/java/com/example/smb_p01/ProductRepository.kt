@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import kotlin.collections.HashMap
+
 
 class ProductRepository(private val firebaseDB: FirebaseDatabase) {
     companion object {
@@ -62,7 +62,6 @@ class ProductRepository(private val firebaseDB: FirebaseDatabase) {
     }
 
     fun insert(product: Product) {
-        println("insert path: $path")
         firebaseDB.getReference(path).push().also {
             product.id = it.ref.key.toString()
             it.setValue(product)
@@ -87,5 +86,33 @@ class ProductRepository(private val firebaseDB: FirebaseDatabase) {
 
     fun switchMode(p: String) {
         path = p
+        allProducts.value?.clear()
+        firebaseDB.getReference(p).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (product in dataSnapshot.children) {
+                    val price: Double = try {
+                        product.child("price").value as Double
+                    } catch (exception: ClassCastException) {
+                        (product.child("price").value as Long).toDouble()
+                    }
+                    val amount: Double = try {
+                        product.child("amount").value as Double
+                    } catch (exception: ClassCastException) {
+                        (product.child("amount").value as Long).toDouble()
+                    }
+                    val myProduct = Product(
+                        id = product.ref.key as String,
+                        name = product.child("name").value as String,
+                        price = price,
+                        amount = amount,
+                        isBought = product.child("bought").value as Boolean
+                    )
+                    allProducts.value?.put(myProduct.id, myProduct)
+                    allProducts.postValue(allProducts.value)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
     }
 }
