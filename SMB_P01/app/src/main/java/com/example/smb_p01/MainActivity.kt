@@ -5,8 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -43,6 +41,10 @@ class MainActivity : AppCompatActivity() {
         }
         binding.settingsButton.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
+        }
+
+        binding.mapActivityButton.setOnClickListener {
+            startActivity(Intent(this, MapActivity::class.java))
         }
 
         binding.addProductButton.setOnClickListener {
