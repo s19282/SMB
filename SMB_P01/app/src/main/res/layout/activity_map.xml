@@ -11,7 +11,6 @@
         android:id="@+id/mapView2"
         android:layout_width="442dp"
         android:layout_height="952dp"
-        app:layout_constraintBottom_toTopOf="@+id/addToFavourites"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:mapbox_cameraTargetLat="52.0"
@@ -27,27 +26,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/addToFavourites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:text="Add to favourites"
-        app:layout_constraintBottom_toTopOf="@+id/shopList"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/nameOfPoint"
-        android:layout_width="178dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="24dp"
-        android:background="#FFFFFF"
-        android:hint="Point's name"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/shopList"
-        app:layout_constraintStart_toStartOf="@+id/mapView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

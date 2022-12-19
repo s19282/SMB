@@ -2,6 +2,7 @@ package com.example.smb_p01
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -38,8 +39,8 @@ class MapActivity : AppCompatActivity() {
             ) { }
         }
 
-        binding.addToFavourites.setOnClickListener {
-            addAnnotationToMap(binding.nameOfPoint.text.toString())
+        binding.shopList.setOnClickListener {
+            startActivity(Intent(this, ShopListActivity::class.java))
         }
 
         val permissionsListener: PermissionsListener = object : PermissionsListener {
