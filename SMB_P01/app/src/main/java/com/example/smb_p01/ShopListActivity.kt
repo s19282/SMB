@@ -67,10 +67,14 @@ class ShopListActivity : AppCompatActivity() {
                 .Builder()
                 .addGeofence(geofence)
                 .build()
+            val intent = Intent(this,GeoReceiver::class.java)
+            intent.putExtra("name",point.name)
+            intent.putExtra("description",point.description)
+            intent.putExtra("radius",point.radius.toString())
             val pendingIntent = PendingIntent.getBroadcast(
                 this,
                 1,
-                Intent(this,GeoReceiver::class.java),
+                intent,
                 PendingIntent.FLAG_MUTABLE
             )
             if (ActivityCompat.checkSelfPermission(
