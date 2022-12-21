@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smb_p01.databinding.ShopBinding
 
-class MapPointAdapter() :
+class MapPointAdapter :
     RecyclerView.Adapter<MapPointAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ShopBinding) : RecyclerView.ViewHolder(binding.root)
