@@ -1,11 +1,17 @@
 package com.example.smb_p01
 
+import android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,6 +61,25 @@ class MainActivity : AppCompatActivity() {
                 intent,
                 Bundle()
             )
+        }
+        if (ContextCompat.checkSelfPermission(
+                this,
+                "android.permission.ACCESS_BACKGROUND_LOCATION"
+            ) == PackageManager.PERMISSION_DENIED
+        ) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(
+                    "android.permission.ACCESS_FINE_LOCATION",
+                    "android.permission.ACCESS_COARSE_LOCATION",
+                    "android.permission.POST_NOTIFICATIONS"
+                ), 178)
+            ActivityCompat.requestPermissions(this,
+                arrayOf(
+                    "android.permission.ACCESS_BACKGROUND_LOCATION"
+                ), 179)
+        } else {
+            Toast.makeText(this, "Permission already granted", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
