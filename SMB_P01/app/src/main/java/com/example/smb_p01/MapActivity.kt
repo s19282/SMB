@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smb_p01.databinding.ActivityMapBinding
 import com.google.gson.Gson
@@ -36,7 +35,7 @@ class MapActivity : AppCompatActivity() {
         }
 
         binding.shopList.setOnClickListener {
-            startActivity(Intent(this, ShopListActivity::class.java))
+            startActivity(Intent(this, FavShopListActivity::class.java))
         }
 
     }
@@ -51,13 +50,13 @@ class MapActivity : AppCompatActivity() {
             true
         )
 
-        val paOptions = PointAnnotationOptions()
+        val pointAnnotationOptions = PointAnnotationOptions()
             .withPoint(Point.fromLngLat(longitude, latitude))
             .withIconImage(scaledMarker)
             .withTextAnchor(TextAnchor.TOP)
             .withTextField(title)
 
-        pointAnnotationManager.create(paOptions)
+        pointAnnotationManager.create(pointAnnotationOptions)
     }
 
     override fun onStart() {
@@ -65,7 +64,7 @@ class MapActivity : AppCompatActivity() {
         val gson = Gson()
         val json = sp.getString("favShops", "")
         val listOfPoints = try {
-            gson.fromJson(json, Array<MapPoint>::class.java).toList()
+            gson.fromJson(json, Array<FavShop>::class.java).toList()
         } catch (e: Exception) {
             mutableListOf()
         }

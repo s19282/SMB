@@ -25,11 +25,11 @@ import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 
 
-class ShopListActivity : AppCompatActivity() {
+class FavShopListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityShopListBinding
     private lateinit var sp: SharedPreferences
-    private var favShops = mutableListOf<MapPoint>()
+    private var favShops = mutableListOf<FavShop>()
     private lateinit var mapPointAdapter: MapPointAdapter
     private lateinit var permissionsManager: PermissionsManager
     private lateinit var locationManager: LocationManager
@@ -48,7 +48,7 @@ class ShopListActivity : AppCompatActivity() {
         binding.favShopList.adapter = mapPointAdapter
         binding.favAddButton.setOnClickListener {
             val location = getLocation()
-            val point = MapPoint(
+            val point = FavShop(
                 binding.shopName.text.toString(),
                 binding.shopDescription.text.toString(),
                 binding.shopRadius.text.toString().toInt(),
@@ -99,16 +99,9 @@ class ShopListActivity : AppCompatActivity() {
         }
 
         val permissionsListener: PermissionsListener = object : PermissionsListener {
-            override fun onExplanationNeeded(permissionsToExplain: List<String>) {
-            }
+            override fun onExplanationNeeded(permissionsToExplain: List<String>) {}
 
-            override fun onPermissionResult(granted: Boolean) {
-                if (granted) {
-
-                } else {
-
-                }
-            }
+            override fun onPermissionResult(granted: Boolean) {}
         }
 
         if (!PermissionsManager.areLocationPermissionsGranted(this)) {
@@ -122,7 +115,7 @@ class ShopListActivity : AppCompatActivity() {
         val gson = Gson()
         val json = sp.getString("favShops", "")
         favShops = try {
-            gson.fromJson(json, Array<MapPoint>::class.java).toList() as ArrayList<MapPoint>
+            gson.fromJson(json, Array<FavShop>::class.java).toList() as ArrayList<FavShop>
         } catch (e: Exception) {
             mutableListOf()
         }
@@ -152,12 +145,11 @@ class ShopListActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            requestPermissions(
+            ActivityCompat.requestPermissions(this,
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                ), 1
+                ), 176
             )
         }
         return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)

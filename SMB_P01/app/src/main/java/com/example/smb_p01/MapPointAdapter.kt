@@ -1,5 +1,6 @@
 package com.example.smb_p01
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,7 @@ class MapPointAdapter :
 
     class ViewHolder(val binding: ShopBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private var favShops = mutableListOf<MapPoint>()
+    private var favShops = mutableListOf<FavShop>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -26,12 +27,14 @@ class MapPointAdapter :
 
     override fun getItemCount(): Int = favShops.size
 
-    fun add(mapPoint: MapPoint) {
-        favShops.add(mapPoint)
+    @SuppressLint("NotifyDataSetChanged")
+    fun add(favShop: FavShop) {
+        favShops.add(favShop)
         notifyDataSetChanged()
     }
 
-    fun setPoints(shops: MutableList<MapPoint>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun setPoints(shops: MutableList<FavShop>) {
         favShops = shops
         notifyDataSetChanged()
     }

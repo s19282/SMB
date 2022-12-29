@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopListActivity">
+    tools:context=".FavShopListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favShopList"

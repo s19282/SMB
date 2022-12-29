@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.location.Geofence
@@ -34,12 +33,11 @@ class GeoReceiver : BroadcastReceiver() {
         )
         when (GeofencingEvent.fromIntent(intent)!!.geofenceTransition) {
             Geofence.GEOFENCE_TRANSITION_ENTER -> {
-                Log.i("geofenceApp", "Weszliśmy w obszar.")
                 val notification = NotificationCompat
                     .Builder(context, channelId)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
                     .setContentTitle(
-                        "Jesteś w promieniu ${intent.getStringExtra("radius")}m od: ${
+                        "You are within ${intent.getStringExtra("radius")}meters of the ${
                             intent.getStringExtra(
                                 "name"
                             )
@@ -57,11 +55,10 @@ class GeoReceiver : BroadcastReceiver() {
                     .notify(0, notification)
             }
             Geofence.GEOFENCE_TRANSITION_EXIT -> {
-                Log.i("geofenceApp", "Wyszliśmy z obszaru.")
                 val notification = NotificationCompat
                     .Builder(context, channelId)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
-                    .setContentTitle("Oddaliłeś się od : ${intent.getStringExtra("name")}")
+                    .setContentTitle("You have left the ${intent.getStringExtra("name")} area")
                     .setContentText(
                         intent.getStringExtra("description")
                     )
@@ -71,7 +68,7 @@ class GeoReceiver : BroadcastReceiver() {
 
                 NotificationManagerCompat
                     .from(context)
-                    .notify(0, notification)
+                    .notify(1, notification)
             }
             else -> {
                 Log.e("geofenceApp", "Wrong transition type.")

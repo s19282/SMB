@@ -1,14 +1,11 @@
 package com.example.smb_p01
 
-import android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
-import android.Manifest.permission.POST_NOTIFICATIONS
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat

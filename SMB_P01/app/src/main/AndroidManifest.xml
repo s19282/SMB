@@ -22,7 +22,7 @@
             android:enabled="true"
             android:exported="true" />
         <activity
-            android:name=".ShopListActivity"
+            android:name=".FavShopListActivity"
             android:exported="false"
             android:label="@string/title_activity_shop_list"
             android:theme="@style/Theme.SMB_P01.NoActionBar">
