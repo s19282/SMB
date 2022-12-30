@@ -23,6 +23,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
+import kotlin.random.Random
 
 
 class FavShopListActivity : AppCompatActivity() {
@@ -34,7 +35,9 @@ class FavShopListActivity : AppCompatActivity() {
     private lateinit var permissionsManager: PermissionsManager
     private lateinit var locationManager: LocationManager
     private lateinit var geoClient: GeofencingClient
-
+    companion object{
+        private var counter = Random.nextInt()
+    }
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +76,7 @@ class FavShopListActivity : AppCompatActivity() {
             intent.putExtra("radius",point.radius.toString())
             val pendingIntent = PendingIntent.getBroadcast(
                 this,
-                1,
+                counter++,
                 intent,
                 PendingIntent.FLAG_MUTABLE
             )

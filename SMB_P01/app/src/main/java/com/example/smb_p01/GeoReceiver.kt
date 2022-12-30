@@ -37,7 +37,7 @@ class GeoReceiver : BroadcastReceiver() {
                     .Builder(context, channelId)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
                     .setContentTitle(
-                        "You are within ${intent.getStringExtra("radius")}meters of the ${
+                        "You are within ${intent.getStringExtra("radius")} meters of the ${
                             intent.getStringExtra(
                                 "name"
                             )
@@ -52,7 +52,7 @@ class GeoReceiver : BroadcastReceiver() {
 
                 NotificationManagerCompat
                     .from(context)
-                    .notify(0, notification)
+                    .notify(1, notification)
             }
             Geofence.GEOFENCE_TRANSITION_EXIT -> {
                 val notification = NotificationCompat
@@ -68,7 +68,7 @@ class GeoReceiver : BroadcastReceiver() {
 
                 NotificationManagerCompat
                     .from(context)
-                    .notify(1, notification)
+                    .notify(0, notification)
             }
             else -> {
                 Log.e("geofenceApp", "Wrong transition type.")
