@@ -92,7 +92,6 @@ class FavShopListActivity : AppCompatActivity() {
                 .addOnFailureListener {
                     Log.e("geofenceApp", it.message.toString()) //ERROR 1004 = missing ACCESS_BACKGROUND_PERMISSION
                 }
-            favShops.add(point)
             favShopAdapter.add(point)
             val prefsEditor: SharedPreferences.Editor = sp.edit()
             val gson = Gson()
