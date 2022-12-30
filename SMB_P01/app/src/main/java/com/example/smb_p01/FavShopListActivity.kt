@@ -31,7 +31,7 @@ class FavShopListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShopListBinding
     private lateinit var sp: SharedPreferences
     private var favShops = mutableListOf<FavShop>()
-    private lateinit var mapPointAdapter: MapPointAdapter
+    private lateinit var favShopAdapter: FavShopAdapter
     private lateinit var permissionsManager: PermissionsManager
     private lateinit var locationManager: LocationManager
     private lateinit var geoClient: GeofencingClient
@@ -45,10 +45,10 @@ class FavShopListActivity : AppCompatActivity() {
         binding = ActivityShopListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         geoClient = LocationServices.getGeofencingClient(this)
-        mapPointAdapter = MapPointAdapter()
+        favShopAdapter = FavShopAdapter()
         sp = getSharedPreferences("favShops", Context.MODE_PRIVATE)
         binding.favShopList.layoutManager = LinearLayoutManager(this)
-        binding.favShopList.adapter = mapPointAdapter
+        binding.favShopList.adapter = favShopAdapter
         binding.favAddButton.setOnClickListener {
             val location = getLocation()
             val point = FavShop(
@@ -93,7 +93,7 @@ class FavShopListActivity : AppCompatActivity() {
                     Log.e("geofenceApp", it.message.toString()) //ERROR 1004 = missing ACCESS_BACKGROUND_PERMISSION
                 }
             favShops.add(point)
-            mapPointAdapter.add(point)
+            favShopAdapter.add(point)
             val prefsEditor: SharedPreferences.Editor = sp.edit()
             val gson = Gson()
             val json = gson.toJson(favShops)
@@ -122,7 +122,7 @@ class FavShopListActivity : AppCompatActivity() {
         } catch (e: Exception) {
             mutableListOf()
         }
-        mapPointAdapter.setPoints(favShops)
+        favShopAdapter.setPoints(favShops)
     }
 
     override fun onRequestPermissionsResult(
