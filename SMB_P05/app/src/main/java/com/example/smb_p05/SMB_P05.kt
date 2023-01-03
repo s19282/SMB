@@ -9,10 +9,15 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
 
+
 /**
  * Implementation of App Widget functionality.
  */
 class SMB_P05 : AppWidgetProvider() {
+    companion object {
+        var onOff = true
+    }
+
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
@@ -41,6 +46,21 @@ class SMB_P05 : AppWidgetProvider() {
                 openWebsite
             )
         }
+        if (intent?.action == "com.example.smb_p05.SMB_P05/image") {
+            val avm = AppWidgetManager.getInstance(context)
+            val remoteViews = RemoteViews(context?.packageName, R.layout.s_m_b__p05)
+            onOff = if (onOff) {
+                remoteViews.setImageViewResource(R.id.image, R.drawable.apple)
+                false
+            } else {
+                remoteViews.setImageViewResource(R.id.image, R.drawable.android)
+                true
+            }
+            avm.updateAppWidget(
+                Integer.parseInt(intent.getStringExtra("id").orEmpty()),
+                remoteViews
+            )
+        }
     }
 }
 
@@ -59,6 +79,19 @@ internal fun updateAppWidget(
         intentClick,
         PendingIntent.FLAG_IMMUTABLE
     )
+
+    val intentClick2 = Intent()
+    intentClick2.action = "com.example.smb_p05.SMB_P05/image"
+    intentClick2.component = ComponentName(context, SMB_P05::class.java)
+    intentClick2.putExtra("id", appWidgetId.toString())
+
+    val pendingIntent2 = PendingIntent.getBroadcast(
+        context,
+        2,
+        intentClick2,
+        PendingIntent.FLAG_IMMUTABLE
+    )
     views.setOnClickPendingIntent(R.id.openWebsiteButton, pendingIntent)
+    views.setOnClickPendingIntent(R.id.image, pendingIntent2)
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
