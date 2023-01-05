@@ -5,4 +5,5 @@
     <string name="app_widget_description">This is an app widget description</string>
     <string name="open_website">Open Website</string>
     <string name="open_images">Open Images</string>
+    <string name="open_fav_shop_list">Open Fav Shop List</string>
 </resources>
