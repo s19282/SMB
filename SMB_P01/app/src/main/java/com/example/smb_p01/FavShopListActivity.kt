@@ -35,9 +35,11 @@ class FavShopListActivity : AppCompatActivity() {
     private lateinit var permissionsManager: PermissionsManager
     private lateinit var locationManager: LocationManager
     private lateinit var geoClient: GeofencingClient
-    companion object{
+
+    companion object {
         private var counter = Random.nextInt()
     }
+
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +62,8 @@ class FavShopListActivity : AppCompatActivity() {
             )
             val geofence = Geofence
                 .Builder()
-                .setCircularRegion(location.latitude,location.longitude,point.radius+0.0f)
-                .setExpirationDuration(30*60*1000)
+                .setCircularRegion(location.latitude, location.longitude, point.radius + 0.0f)
+                .setExpirationDuration(30 * 60 * 1000)
                 .setRequestId("geo_${point.name}")
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
                 .build()
@@ -70,10 +72,10 @@ class FavShopListActivity : AppCompatActivity() {
                 .Builder()
                 .addGeofence(geofence)
                 .build()
-            val intent = Intent(this,GeoReceiver::class.java)
-            intent.putExtra("name",point.name)
-            intent.putExtra("description",point.description)
-            intent.putExtra("radius",point.radius.toString())
+            val intent = Intent(this, GeoReceiver::class.java)
+            intent.putExtra("name", point.name)
+            intent.putExtra("description", point.description)
+            intent.putExtra("radius", point.radius.toString())
             val pendingIntent = PendingIntent.getBroadcast(
                 this,
                 counter++,
@@ -84,13 +86,17 @@ class FavShopListActivity : AppCompatActivity() {
                     this,
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
-            ) { }
-            geoClient.addGeofences(geoReq,pendingIntent)
+            ) {
+            }
+            geoClient.addGeofences(geoReq, pendingIntent)
                 .addOnSuccessListener {
                     Log.i("geofenceApp", "Geofence: ${geofence.requestId}  is added!")
                 }
                 .addOnFailureListener {
-                    Log.e("geofenceApp", it.message.toString()) //ERROR 1004 = missing ACCESS_BACKGROUND_PERMISSION
+                    Log.e(
+                        "geofenceApp",
+                        it.message.toString()
+                    ) //ERROR 1004 = missing ACCESS_BACKGROUND_PERMISSION
                 }
             favShopAdapter.add(point)
             val prefsEditor: SharedPreferences.Editor = sp.edit()
@@ -116,11 +122,8 @@ class FavShopListActivity : AppCompatActivity() {
         super.onStart()
         val gson = Gson()
         val json = sp.getString("favShops", "")
-        favShops = try {
-            gson.fromJson(json, Array<FavShop>::class.java).toList() as ArrayList<FavShop>
-        } catch (e: Exception) {
-            mutableListOf()
-        }
+        favShops.clear()
+        favShops.addAll(gson.fromJson(json, Array<FavShop>::class.java).toList())
         favShopAdapter.setPoints(favShops)
     }
 
@@ -147,7 +150,8 @@ class FavShopListActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(
+                this,
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
