@@ -6,4 +6,17 @@
     <string name="open_website">Open Website</string>
     <string name="open_images">Open Images</string>
     <string name="open_fav_shop_list">Open Fav Shop List</string>
+    <string name="shop1">Shop 1 Desc 1</string>
+    <string name="shop2">Shop 2 Desc 2</string>
+    <string name="shop3">Shop 3 Desc 3</string>
+    <string name="shop4">Shop 4 Desc 4</string>
+    <string-array name="favShops_array">
+        <item>Shop 1 Description 1</item>
+        <item>Shop 2 Description 2</item>
+        <item>Shop 3 Description 3</item>
+        <item>Shop 4 Description 4</item>
+        <item>Shop 5 Description 5</item>
+    </string-array>
+
+
 </resources>
